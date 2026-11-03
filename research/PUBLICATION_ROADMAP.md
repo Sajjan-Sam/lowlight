@@ -1,6 +1,6 @@
-# Publication Roadmap v2: verified against full papers (2026-11-03)
+# Publication Roadmap: verified against full papers (2026-11-03)
 
-Every idea is checked against the full papers (`literature/`), confirms the SCI bug, and gives only the claims that survived.
+Every idea below has been checked against the full papers (`literature/`). Only the claims that survived are kept, and the SCI bug is confirmed.
 
 > **No one can guarantee better results before the experiments are run.** What this plan does instead:
 > 1. Builds every method on the **strongest recipe already published**.
