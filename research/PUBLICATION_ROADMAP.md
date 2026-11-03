@@ -11,14 +11,14 @@ v1 checked novelty only through search snippets, because arXiv was blocked. **v2
 
 ## 0. What changed from v1 (corrections)
 
-| v1 claim | Full-text verdict | Consequence |
+| Earlier claim | Full-text verdict | Consequence |
 |---|---|---|
-| Paper B's per-object, per-teacher, ground-truth-loss gate is new | ❌ **M-AID (IEEE T-IV 2022)** already weights distillation per instance, per scale and per teacher from each teacher's ground-truth loss. CA-MKD does the same for classification. | Paper B redesigned (§2): novelty moves to *how utility is estimated*. |
-| Paper A headline: "the sign flips between P0 and P1/P2" | ⚠️ **LIME-Eval and the CVPRW 2026 LoViF paper** both ran frozen COCO detectors (P0) on ExDark: enhancement mostly did **not** help. On **DarkFace** it **did** help, for all 14 enhancers. | Headline becomes **protocol × darkness interaction**. |
+| Paper 2's per-object, per-teacher, ground-truth-loss gate is new | ❌ **M-AID (IEEE T-IV 2022)** already weights distillation per instance, per scale and per teacher from each teacher's ground-truth loss. CA-MKD does the same for classification. | Paper 2 redesigned (§2): novelty moves to *how utility is estimated*. |
+| Paper 1 headline: "the sign flips between P0 and P1/P2" | ⚠️ **LIME-Eval and the CVPRW 2026 LoViF paper** both ran frozen COCO detectors (P0) on ExDark: enhancement mostly did **not** help. On **DarkFace** it **did** help, for all 14 enhancers. | Headline becomes **protocol × darkness interaction**. |
 | "P1−P3 = irreversible information loss" (data-processing inequality) | ⚠️ The DPI bounds Shannon information, not *usable* information. LIME-Eval shows **augmentation order** (enhance-first vs augment-first) moves enhanced-trained results back to raw level. | Rename to **residual (non-adaptable) penalty**, cite V-information, and control augmentation order. |
-| Paper C's "enhancement helps recognition but hurts localization" is new | ❌ **Morawski et al., IEEE TMM 2025:** on ExDark, ~16 enhancers lower YOLO-World mAP but raise CLIP accuracy. **SIC-CADS (AAAI 2024)** and **arXiv 2509.19875** already rescore detections with an image-level or VLM prior. | Paper C reframed as a **measurement paper**, conditional on a pilot. |
-| Paper D "no-regret enhancement" ≈ 5/10 | ❌ 3/10. TaskGuard's counterfactual harm map, Sun et al. 2022's detection-loss constraint and DBDiff's fusion map already exist. | **Not a standalone paper.** Fold its "regret rate" metric into A and its harm signal into B. |
-| DPI-Det | ❌ 3/10 overall; no component is new (`literature/02`) | Replaced by Paper B. |
+| Paper 3's "enhancement helps recognition but hurts localization" is new | ❌ **Morawski et al., IEEE TMM 2025:** on ExDark, ~16 enhancers lower YOLO-World mAP but raise CLIP accuracy. **SIC-CADS (AAAI 2024)** and **arXiv 2509.19875** already rescore detections with an image-level or VLM prior. | Paper 3 reframed as a **measurement paper**, conditional on a pilot. |
+| A separate "no-regret enhancement" paper ≈ 5/10 | ❌ 3/10. TaskGuard's counterfactual harm map, Sun et al. 2022's detection-loss constraint and DBDiff's fusion map already exist. | **Not a standalone paper.** Its "regret rate" metric goes into Paper 1 and its harm signal into Paper 2. |
+| DPI-Det | ❌ 3/10 overall; no component is new (`literature/02`) | Replaced by Paper 2. |
 
 **Confirmed bug, SCI.**
 - I re-ran SCI myself (own reimplementation, official weights) on the doc's own raw sample. The doc's "SCI" image matches SCI's **illumination map `i`** (medium weights), not the enhanced output `r`:
@@ -45,7 +45,7 @@ v1 checked novelty only through search snippets, because arXiv was blocked. **v2
 | **2** | *Distilling Computable Privilege: Counterfactual Enhancement Utility for Raw-Input Low-Light Detection* | **A\*:** ACM MM 2027 (~Apr 1) → AAAI-28 (~late Jul); ICCV 2027 (~early Mar) only if every checkpoint passes by February. Fallback: TCSVT / TIP. | 5/10, or 6/10 if the label-free / unlabeled part works | **Medium**; the go/no-go gates decide |
 | 3 | *Recognition vs. Localization in the Dark: A Decomposition of Detectors and VLMs under Low-Light Enhancement* | IEEE TMM / TCSVT; NeurIPS 2027 Evaluations & Datasets (~early May) only with the artifact in §1.3 | 6/10 as a measurement paper (4/10 as the original method idea) | **Conditional** on a 1-week pilot |
 
-Four papers would be salami-slicing. Paper D and DPI-Det are retired; their useful parts live inside Papers 1 and 2.
+This is the complete plan; splitting further would be salami-slicing. The earlier DPI-Det design and the no-regret enhancement variant are retired, and their useful parts live inside Papers 1 and 2.
 
 ---
 
@@ -78,7 +78,7 @@ Four papers would be salami-slicing. Paper D and DPI-Det are retired; their usef
 - Identity-I/O, quantization and brightness-matched (gamma) controls.
 - A capacity sweep (n / s / m).
 - Correlation analyses over ≥50 cells.
-- The "regret rate" from Paper D: the fraction of images or objects worse than raw.
+- A "regret rate": the fraction of images or objects that end up worse than raw.
 
 **Where the bulk of effort goes:** claims 3 and 4. They are what move this from a replication to a contribution.
 
@@ -178,7 +178,7 @@ GO-1 + GO-2 support an analysis paper (TMM / TCSVT). All four together are neede
 | Mar 2027 | **Submit Paper 1 to a Q1 journal.** | Pattern Recognition / TCSVT / TMM |
 | by Apr 1 | **Paper 2 → ACM MM 2027.** | A\* |
 | Apr–May | Paper 3 (if the pilot passed) | TMM / NeurIPS 2027 E&D (~early May) |
-| Jun–Jul | Revisions; Paper 2 → AAAI-28 if rejected (~late Jul); thesis writing | A\* |
+| Jun–Jul | Revisions; Paper 2 → AAAI-28 if rejected (~late Jul); write-up | A\* |
 
 ---
 
@@ -192,8 +192,8 @@ GO-1 + GO-2 support an analysis paper (TMM / TCSVT). All four together are neede
 - [ ] Re-verify every reference by hand (remove `utm_source=chatgpt.com`; fix the LLVIP DOI).
 
 ## Files
-- `literature/05_paperB_fulltext_novelty_and_design.md`: Paper 2 full-text audit, redesign, numbers to beat, 10-week plan.
-- `literature/06_paperA_D_fulltext_novelty.md`: Paper 1 claims and must-not-claim list; Paper D verdict; LIME-Eval review record.
-- `literature/07_paperC_fulltext_novelty.md`: Paper 3 audit and pilot design.
+- `literature/05_paper2_distillation_novelty_and_design.md`: Paper 2 full-text audit, redesign, numbers to beat, 10-week plan.
+- `literature/06_paper1_study_novelty.md`: Paper 1 claims and must-not-claim list; verdict on the no-regret variant; LIME-Eval review record.
+- `literature/07_paper3_recognition_localization_novelty.md`: Paper 3 audit and pilot design.
 - `literature/01–04`: first-pass (snippet-based) audits, venues, reviewer checklist. Superseded where they conflict with 05–07.
 - `analysis/`: reanalysis of the doc's numbers; `analysis/sci_bug/`: the SCI reproduction.

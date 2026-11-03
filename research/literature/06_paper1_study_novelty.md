@@ -1,4 +1,4 @@
-# Full-text novelty check: Paper A (benchmark + mechanism) and Paper D (no-regret enhancement)
+# Full-text novelty check: Paper 1 (study) and the no-regret enhancement variant (folded into Papers 1 and 2)
 
 Checked 2026-11-03 against full texts (arXiv, CVF, NeurIPS proceedings). Each entry paraphrases the paper's own tables or text.
 
@@ -13,14 +13,14 @@ Not reachable, so marked **UNVERIFIED**: OpenReview review text (bot challenge),
 | Wu et al., [arXiv 2409.14461](https://arxiv.org/abs/2409.14461) (preprint) | ◐ | | | ◐ | | | ◐ | | <ul><li>12 enhancers on ExDark (official split 3000/1800/2563) with RetinaNet, EfficientDet and YOLOv7, **trained and tested on enhanced images (P3 only)**. Most enhancers hurt, e.g. YOLOv7 76.09 raw vs 70.2–75.9.</li><li>For classification on synthetic Caltech256-LL, a clean-trained model gains from enhancement (VGG 0.74→0.81 with UTV), but a dark-trained model does not. This is already a **protocol-dependent sign flip**.</li><li>IQA–mAP Pearson (no CIs); t-SNE; says informally LLIE "cannot add new information". Single run; no size/condition analysis.</li></ul> |
 | LIME-Eval, [arXiv 2410.08810](https://arxiv.org/abs/2410.08810) | ◐ | ◐ | | ◐ | | | ◐ | | <ul><li>YOLOX-m on ExDark under three protocols:<ul><li>Enhance-first P3: 45.9–47.6</li><li>Augment-first P3: 48.5–49.2</li><li>Raw: 49.2</li><li>COCO zero-shot (P0): raw 35.0 vs 34.0–35.4</li></ul></li><li>Quantization control ("Bread-round"); invokes the information bottleneck; detectors "more sensitive to noise and artifact" than colour/illumination.</li><li>One detector, 4 enhancers, no seeds or CIs.</li></ul> |
 | Li et al., TPAMI 2022 survey, [arXiv 2104.10729](https://arxiv.org/abs/2104.10729) | ◐ | | | | | | | | <ul><li>Frozen DSFD (WIDER FACE) on 500 DarkFace images (P0). **Every** deep enhancer helps: AP50 0.195 raw vs up to 0.268.</li></ul> |
-| Sun et al., [NeurIPS 2022](https://proceedings.neurips.cc/paper_files/paper/2022/file/1cac8326ce3fbe79171db9754211530c-Paper-Conference.pdf) | ◐ | | | ◐ | | | | | <ul><li>YOLOv3 trained on clean VOC, tested on ExDark (P0-like): raw 46.27, SCI 48.47, ZeroDCE 41.01. **The sign depends on the enhancer.**</li><li>Covariate-shift argument; Eq. 5 constrained form min ‖x̂−x̃‖ s.t. ℓ(D(x̃),ŷ) ≤ r (needs clean x̂).</li></ul> |
+| Sun et al., [NeurIPS 2022](https://proceedings.neurips.cc/paper_files/paper/2022/file/1cac8326ce3fbe79171db9754211530c-Paper 3onference.pdf) | ◐ | | | ◐ | | | | | <ul><li>YOLOv3 trained on clean VOC, tested on ExDark (P0-like): raw 46.27, SCI 48.47, ZeroDCE 41.01. **The sign depends on the enhancer.**</li><li>Covariate-shift argument; Eq. 5 constrained form min ‖x̂−x̃‖ s.t. ℓ(D(x̃),ŷ) ≤ r (needs clean x̂).</li></ul> |
 | Cheng et al., [CVPRW 2026 LoViF](https://openaccess.thecvf.com/content/CVPR2026W/LoViF/papers/Cheng_Generative_Low-Light_Enhancement_for_Computer_Vision_Revisiting_the_Gap_Between_CVPRW_2026_paper.pdf) (DBDiff) | ◐ | | | | | | ◐ | | <ul><li>Frozen COCO YOLOv8 (P0), 14 enhancers.</li><li>**ExDark: raw 0.565; 11 of 14 enhancers are lower** (RetinexNet 0.424). **DarkFace: raw 0.207; all 14 are higher** (0.226–0.262).</li><li>Method: AWF fusion I_F = σ(W)·I_L + (1−σ(W))·I_E with a pseudo-label detection loss.</li></ul> |
 | TaskGuard, [arXiv 2609.08011](https://arxiv.org/abs/2609.08011) | | | | | | | | ◐ | <ul><li>**No low-light content** (zero mentions).</li><li>Synthetic COCO degradations plus DAWN rain; frozen YOLO11s/RT-DETR.</li><li>Exact regional counterfactual B_r = L_det(I_d) − L_det(I_d + M_r⊙R): 51.7% of regions positive, 48.3% negative.</li><li>A per-image restore-or-preserve policy.</li></ul> |
 | Restore What Matters, [arXiv 2609.13791](https://arxiv.org/abs/2609.13791) | ◐ | | | | | | | ◐ | <ul><li>Turbulence face recognition (BRIAR); not low light, not detection.</li><li>Restoration-as-augmentation × test-time restoration; a restore-or-skip gate; PSNR-vs-recognition λ sweep; fine-tunes *restorer* layers, not the detector.</li></ul> |
 | PreActIR, [arXiv 2610.20384](https://arxiv.org/abs/2610.20384) | | | | | | | | | Predicts IQA outcomes for agentic restoration. **No detection**; irrelevant. |
 | NOD, [arXiv 2110.10364](https://arxiv.org/abs/2110.10364) | ◐ | | | | | ◐ | | | <ul><li>COCO-pretrained vs fine-tuned RetinaNet; 4 enhancers (P3) split by instance-level **extreme vs non-extreme** lighting; t-SNE.</li></ul> |
 | Kumari et al., ASOC 2026, [S1568494626010550](https://www.sciencedirect.com/science/article/abs/pii/S1568494626010550) | ? | | | | | | | | **UNVERIFIED** (403). Snippets: YOLOv8–v11 on ExDark, DarkFace and LLVIP as a baseline. No evidence of an enhancer grid. |
-| LR-YOLO, [arXiv 2510.24232](https://arxiv.org/abs/2510.24232) (NeurIPS 2025) | | | | ◐ | ◐ | | | | <ul><li>Lipschitz/Jacobian mechanism: the detector's Jacobian norm is about 10× the restorer's.</li><li>On ExDark, cascades hurt: YOLOv8 50.0 vs LLFormer 46.6.</li><li>On synthetic COCO_Dark, InstructIR→YOLOv8 gives **AP_S −1.5 but AP_L +1.4**. This is the *opposite* size pattern to the student's.</li></ul> |
+| LR-YOLO, [arXiv 2510.24232](https://arxiv.org/abs/2510.24232) (NeurIPS 2025) | | | | ◐ | ◐ | | | | <ul><li>Lipschitz/Jacobian mechanism: the detector's Jacobian norm is about 10× the restorer's.</li><li>On ExDark, cascades hurt: YOLOv8 50.0 vs LLFormer 46.6.</li><li>On synthetic COCO_Dark, InstructIR→YOLOv8 gives **AP_S −1.5 but AP_L +1.4**. This is the *opposite* size pattern to our.</li></ul> |
 | MPD ("From Human to Machine Preference"), [CVPR 2025](https://arxiv.org/abs/2503.10078) | | | | | | | ◐ | | Synthetic distortions, including darkening, with frozen models. Human-centric IQA fails to predict machine preference. No LLIE outputs. |
 | Pei et al., [ECCV 2018](https://arxiv.org/abs/1810.05716) (haze, classification) | ◐ | | | ◐ | | | ◐ | | <ul><li>Clean-train/test-dehazed helps (21.7→42.5%); hazy→hazy ≈ dehazed→dehazed. PSNR/SSIM rank correlation; feature reconstruction.</li><li>**No training-set-size study.**</li></ul> |
 | *Is UIE All Detectors Need?* [arXiv 2311.18814](https://arxiv.org/abs/2311.18814) (underwater; journal venue UNVERIFIED) | ◐ | | ◐ | ◐ | | | ◐ | | <ul><li>18 enhancers × 7 detectors, P3 only. Raw is best for every detector.</li><li>**Stronger backbones and longer schedules widen the raw–enhanced gap.**</li><li>TIDE, CAM, observational attribution to colour/noise/edges.</li></ul> |
@@ -49,7 +49,7 @@ Not reachable, so marked **UNVERIFIED**: OpenReview review text (bot challenge),
 - **(g) IQA vs ΔmAP with bootstrap CIs: PARTIAL, effectively DONE except the CIs.** Covered by 2409.14461, LIME-Eval, Pei 2018, MPD, the underwater study and LoViF. Treat this as hygiene, not a contribution.
 - **(h) Per-image oracle headroom: PARTIAL.** The concept is done (J. Imaging 2026's mixed-set upper bound; AMIEOD's argmin-loss labels; TaskGuard's counterfactual utility). A low-light quantification against TaskGuard/AMIEOD-style selectors is new but minor.
 
-## 3. What Paper A can and cannot claim
+## 3. What Paper 1 can and cannot claim
 
 **Safe to claim as novel** (wording to adopt once executed, seeds and CIs included):
 1. "The first low-light detection study to evaluate the same enhancers and detector families under all of zero-shot, raw-trained, enhanced-trained and mixed protocols on ≥3 real datasets with paired-bootstrap CIs. It shows that the sign of the enhancement effect is governed by the interaction of protocol and scene darkness."
@@ -70,7 +70,7 @@ Not reachable, so marked **UNVERIFIED**: OpenReview review text (bot challenge),
 - "First TIDE analysis" or "stronger detectors do not remove the penalty." (Underwater study.)
 - "Small objects benefit from enhancement" as a first. (LDWLE; LR-YOLO shows the opposite on synthetic data.)
 
-## 4. Paper D verdict
+## 4. Verdict on the no-regret enhancement variant (not a standalone paper)
 
 **Novelty: 3/10 as written** (down from the earlier unverified 5/10). Every component has a full-text precedent:
 
@@ -93,11 +93,11 @@ E[L_det(f(I_i))_s − L_det(I_i)_s] ≤ ε
 Solve it with a primal-dual (Lagrangian) method rather than a fixed-weight hinge. The identity map is always feasible.
 
 - **Headline metric: regret rate.** The fraction of images or objects whose AP or loss is worse than raw, with CIs, measured on **held-out detectors and datasets**.
-- **Show the selectors are special cases.** TaskGuard and AMIEOD are binary, per-image versions of this constraint (H ∈ {0,1}). Show Pareto dominance over DBDiff, FoCo, TaskGuard-gated enhancers, AMIEOD-style selection and Paper A's per-image oracle.
+- **Show the selectors are special cases.** TaskGuard and AMIEOD are binary, per-image versions of this constraint (H ∈ {0,1}). Show Pareto dominance over DBDiff, FoCo, TaskGuard-gated enhancers, AMIEOD-style selection and Paper 1's per-image oracle.
 
 **Recommendation:** do not run D as a standalone paper.
-- Fold the regret-rate metric and a simple gated baseline into **Paper A, section (h)**.
-- Fold the harm map into **Paper B** as the per-object utility signal.
+- Fold the regret-rate metric and a simple gated baseline into **Paper 1, section (h)**.
+- Fold the harm map into **Paper 2** as the per-object utility signal.
 - Spin D out only if the cross-detector regret rate is near 0 and D Pareto-dominates DBDiff. That version would score about 5/10, and it is a TCSVT-level paper at best.
 
 ## 5. LIME-Eval's OpenReview record (ICLR 2025, withdrawn)
@@ -115,7 +115,7 @@ Withdrawn despite a mean rating of 6.25, with no author replies. The only confid
 
 **Review text: UNVERIFIED.** OpenReview requires a bot challenge, which I did not bypass.
 
-The weaknesses below are **inferred from the full text**, not quoted from reviewers. Paper A should pre-empt all of them:
+The weaknesses below are **inferred from the full text**, not quoted from reviewers. Paper 1 should pre-empt all of them:
 1. **One detector and one dataset for the protocol claim** (YOLOX-m on ExDark), with differences of about 0.4 mAP and no seeds or CIs.
 2. **Unequal tuning.** Table 1 was "carefully tuned", while the other experiments used authors' defaults.
 3. **The order of enhancement and augmentation flips the conclusion.** Report both orders, or the protocol critique cuts against you.
@@ -123,4 +123,4 @@ The weaknesses below are **inferred from the full text**, not quoted from review
 5. **Weak metric validity:** confidence energy is not accuracy under shift; it was calibrated on synthetic COCO; the correlation "vanishes" for YOLOX-Tiny.
 6. **The user study does not measure machine utility,** and ties were handled ad hoc.
 
-**Paper A must include:** ≥3 detector families and ≥3 real datasets; 3 seeds with paired-bootstrap CIs; identical tuning budgets across arms; both augmentation orders; identity and quantization controls; a capacity sweep; correlations over ≥50 cells with CIs.
+**Paper 1 must include:** ≥3 detector families and ≥3 real datasets; 3 seeds with paired-bootstrap CIs; identical tuning budgets across arms; both augmentation orders; identity and quantization controls; a capacity sweep; correlations over ≥50 cells with CIs.

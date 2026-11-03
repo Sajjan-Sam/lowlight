@@ -1,4 +1,4 @@
-"""Find which SCI pipeline variant reproduces the thesis doc's SCI output (image37) from its raw input (image41)."""
+"""Find which SCI pipeline variant reproduces the progress document's SCI output (image37) from its raw input (image41)."""
 import sys
 import numpy as np
 import torch

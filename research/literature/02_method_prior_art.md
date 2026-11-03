@@ -1,8 +1,8 @@
-# Agent 2: Method prior-art audit for DPI-Det (as of 2026-11-03)
+# Method prior-art audit (incl. the earlier DPI-Det design) (as of 2026-11-03)
 
 **How this was checked.** arxiv.org, CVF, OpenReview and the publisher sites could not be reached from this session (network policy, 403). Each entry was checked against WebSearch snippets taken from the primary pages (arXiv, CVF, NeurIPS, AAAI, ICLR) and against the authors' GitHub READMEs, which I read directly. The search budget ran out before I could pull the full results tables. **[S]** means the number comes from a snippet of the paper. **[GH]** means it comes from the authors' repository. **UNVERIFIED** means it comes from a secondary source or could not be confirmed.
 
-**Splits.** ExDark numbers are not comparable across protocols. Many YOLOv3 papers follow MAET with an 80/20 split, about 1,473 test images; the EMV-YOLO README confirms 80/20. The YOLA and FRBNet protocol uses different baselines. The student's 70/20/10 split (737 test images) matches none of these. Trash-to-Treasure reportedly used 737 test images, but only a snippet supports that (UNVERIFIED).
+**Splits.** ExDark numbers are not comparable across protocols. Many YOLOv3 papers follow MAET with an 80/20 split, about 1,473 test images; the EMV-YOLO README confirms 80/20. The YOLA and FRBNet protocol uses different baselines. Our 70/20/10 split (737 test images) matches none of these. Trash-to-Treasure reportedly used 737 test images, but only a snippet supports that (UNVERIFIED).
 
 ## A. Closest methods
 
@@ -53,7 +53,7 @@ Also relevant:
 - **DarkFace:** about 65–69 under supervised YOLOv3/TOOD/FQ-RCNN, and 52.9 under DSFD on the CodaLab test set. SGLDet's 76.6 is UNVERIFIED.
 - **LLVIP-visible:** no clean state-of-the-art number found.
 
-The student's YOLOv8n result (73.3) cannot be compared with any of these.
+Our YOLOv8n result (73.3) cannot be compared with any of these.
 
 ## B. Component-by-component overlap
 
@@ -73,7 +73,7 @@ The student's YOLOv8n result (73.3) cannot be compared with any of these.
 
 **Would DPI-Det be accepted at CVPR, ICCV or ECCV as written? No; it would very likely be rejected.** Every component already exists in prior work from 2020–2026. The adaptive, detection-driven enhancement story is already taken by ICPR 2020, IA-YOLO/GDIP and AMIEOD. The feature-level and illumination-invariant line is mature: FeatEnHancer, YOLA, FRBNet, SGLDet. Nothing has been run yet. The current evidence is single-seed YOLOv8n on a non-standard split. Realistically this is a mid-tier conference or journal contribution unless it is re-centred.
 
-**Sharpest defensible idea to carve out: a "no-regret", harm-aware enhancement.** The student's own data is the hook. Every enhancer hurts raw-trained detectors, even after retraining (P3). The harm depends on scale: small objects are sometimes helped, while medium and large objects are consistently hurt. The method would be:
+**Sharpest defensible idea to carve out: a "no-regret", harm-aware enhancement.** Our own data is the hook. Every enhancer hurts raw-trained detectors, even after retraining (P3). The harm depends on scale: small objects are sometimes helped, while medium and large objects are consistently hurt. The method would be:
 - Learn a spatial **harm map** H(x) that predicts where enhancement raises detection loss.
 - Supervise H with per-region or per-scale detection-loss differences between raw and enhanced inputs under a frozen detector.
 - Apply I·(1 + (1−H)·A), so the transform stays anchored to the raw image.
@@ -90,9 +90,9 @@ The claim would be enhancement that is guaranteed, by construction and checked e
 
 **What reviewers will attack:**
 1. **Poisson-Gaussian SNR on sRGB JPEG.** ExDark images are web-sourced, tone-mapped and compressed by unknown ISPs, so α and β cannot be identified. Either estimate a noise-level function in sRGB or drop the physics claim.
-2. **GT boxes at train time vs proposals at test time.** This is a train/test mismatch and arguably label leakage. Proposals need a second pass. The student must ablate with predicted masks during training too.
+2. **GT boxes at train time vs proposals at test time.** This is a train/test mismatch and arguably label leakage. Proposals need a second pass. We must ablate with predicted masks during training too.
 3. **Kitchen-sink design.** 8 losses and many λ, a and b hyperparameters create an ablation explosion. Gains will be attributed to extra capacity or extra fine-tuning.
-4. **Trivial identity solution.** L_feat, L_id and a frozen raw-trained detector all push W toward 1. The student's own P2/P3 results predict that raw is the optimum.
+4. **Trivial identity solution.** L_feat, L_id and a frozen raw-trained detector all push W toward 1. Our own P2/P3 results predict that raw is the optimum.
 5. **Unclear supervision for L_ret and L_snr.** ExDark has no paired normal-light references, so it is not clear what supervises these losses.
 6. **Inference cost.** Compare against EMV-YOLO (27K params), SimROD (4 params) and SGLDet (zero added inference cost).
 7. **Weak evaluation.** Single seed, a custom split, and differences of about 1 mAP with no confidence intervals. The "LLIE hurts detection" finding is already known (Rethinking-IR, 2409.14461, LR-YOLO, CVPRW 2026).

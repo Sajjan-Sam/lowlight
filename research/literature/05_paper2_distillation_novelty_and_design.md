@@ -1,4 +1,4 @@
-# 05: Paper B, full-text novelty check and redesign (2026-11-03)
+# 05: Paper 2, full-text novelty check and redesign (2026-11-03)
 
 **Read in full:** SGLDet, AMIEOD, TaskGuard, Restore What Matters, FGD, CA-MKD, YOLA, FRBNet, FeatEnHancer, TorchAdapt, RMD-Net, KDFA, AID, Sunshine-to-Rainstorm, M-AID (garbled extraction; abstract, introduction and conclusion readable). **Abstract or method pages only:** ActLumos, MST-Distill, PATT, AMTML-KD, RL teacher selection, MFH, PKD, LUPI detection. **Blocked:** OpenReview, Springer, MDPI/PMC (bot challenges).
 
@@ -8,7 +8,7 @@
 
 | Work | What is transferred, and what is gated/weighted | Data / detector | Reported numbers |
 |---|---|---|---|
-| **SGLDet**, ICLR 2026 ([pdf](https://proceedings.iclr.cc/paper_files/paper/2026/file/2b00b3331bd0f5fbfdd966ac06338f6d-Paper-Conference.pdf)) | A U-Net decoder on the backbone, used in training only, reconstructs a target built from the phase of an SCI-enhanced image and the amplitude of an SDAP-denoised one. The loss is MSE with λ=0.01 (performance collapses at λ≥0.05). Dense and **ungated**. Code is "coming soon" ([repo](https://github.com/gw-shin/SGLDet)). | DarkFace (5,500/500 split), DSFD trained from scratch | 59.7→**76.6**. Enhanced-only target 72.9; gamma+Gaussian target 70.9. |
+| **SGLDet**, ICLR 2026 ([pdf](https://proceedings.iclr.cc/paper_files/paper/2026/file/2b00b3331bd0f5fbfdd966ac06338f6d-Paper 3onference.pdf)) | A U-Net decoder on the backbone, used in training only, reconstructs a target built from the phase of an SCI-enhanced image and the amplitude of an SDAP-denoised one. The loss is MSE with λ=0.01 (performance collapses at λ≥0.05). Dense and **ungated**. Code is "coming soon" ([repo](https://github.com/gw-shin/SGLDet)). | DarkFace (5,500/500 split), DSFD trained from scratch | 59.7→**76.6**. Enhanced-only target 72.9; gamma+Gaussian target 70.9. |
 | | | ExDark, MAET split (5,896/1,467), YOLOv3-608, 25 epochs | 76.4→78.6 |
 | | | nuImages-night, YOLOv8-m | 52.4→55.3 |
 | **AMIEOD**, IEEE TMM ([arXiv 2605.06084](https://arxiv.org/abs/2605.06084), [code](https://github.com/jayfantasyxc/AMIEOD), Ultralytics) | Per **image**: b = argmin_k L_det(I_k, GT) over {**raw**, SCI, joint-SCI, IA-YOLO DIP}. Every expert's output is regressed to I_b (DGRL). The detector trains on all views. At inference a ResNet-50 selector is trained by cross-entropy to b. | ExDark MAET, YOLOv3 at 640, 100 epochs | 76.5→82.1 |
@@ -36,7 +36,7 @@
 
 ---
 
-## 2. Verdict: Paper B as stated is **3/10**
+## 2. Verdict: Paper 2 as stated is **3/10**
 
 Each part already exists: the gate is **M-AID** (+ CA-MKD normalisation); "lowest-GT-loss view, raw included" is **AMIEOD's DGRL** (per image); "training-only enhancement, zero inference cost" is **SGLDet** and AMIEOD's 81.9 raw-input result; "weight a privileged teacher by its advantage" is **PATT**; "utility differs within an image" is **TaskGuard**. A reviewer will write "M-AID applied to LLIE teachers".
 
@@ -71,7 +71,7 @@ Each part already exists: the gate is **M-AID** (+ CA-MKD normalisation); "lowes
 - Standardisation strips the illumination-shifted feature statistics: "transfer structure, not the 58–90% recoverable shift". Not novel alone ([PKD](https://arxiv.org/abs/2207.02039)); present as a justified, ablated design choice.
 
 **C3. Amortised utility head (the semi-supervised extension).**
-- A small head on student object features regresses z_k(o); on unlabeled images (DarkFace unlabeled ≈9k, count UNVERIFIED; BDD100K-night) it gates KD on raw-teacher pseudo-boxes. Removed at test time (optionally exported as an "enhance here" map for Paper D).
+- A small head on student object features regresses z_k(o); on unlabeled images (DarkFace unlabeled ≈9k, count UNVERIFIED; BDD100K-night) it gates KD on raw-teacher pseudo-boxes. Removed at test time (optionally exported as an "enhance here" map).
 - Closest: AMIEOD's selector and TaskGuard, both image-level, at inference. No per-object amortised KD gate found.
 
 **Theory, as framing with falsifiable predictions rather than a claimed theorem:**
@@ -126,9 +126,9 @@ Prerequisites, from roadmap §3: fix SCI, adopt the MAET split, and run 3 raw se
 
 | Week | Work | Go/no-go |
 |---|---|---|
-| 1 | Ultralytics KD hooks (PKD, cls/DFL, per-level masks); DarkFace 5,500/500; YOLOv8n raw ×3 seeds, YOLOv8m raw; AMIEOD raw-input recipe on YOLOv8n; photometric-aug baseline. | If AMIEOD-style multi-view training gives YOLOv8n ≥ +3 on raw input, it becomes the student's base recipe. |
-| 2 | Train the cross-fitted YOLOv8m teachers: 3 folds × (2 raw seeds + 3 enhancers) = 15 runs, plus 5 full-data teachers. Compute z_k(o) and plot it against size and luminance. | **GNG-1:** if the share of objects with z_k > 2 is no larger than under a raw-vs-raw null (third seed), the signal is noise: fold the null result into Paper A and stop B. |
-| 3 | Run the full control grid on ExDark, 1 seed, YOLOv8n. | **GNG-2:** cross-fitted gate ≥ +0.8 mAP50 over ungated KD **and** ≥ +0.5 over the raw-seed-ensemble gate (confirm on 2 more seeds). If not: if ungated enhanced-teacher KD beats multi-view training by ≥ +1, reframe as "enhancement as computable privileged information" (AAAI/TCSVT); otherwise move to Paper A/D. |
+| 1 | Ultralytics KD hooks (PKD, cls/DFL, per-level masks); DarkFace 5,500/500; YOLOv8n raw ×3 seeds, YOLOv8m raw; AMIEOD raw-input recipe on YOLOv8n; photometric-aug baseline. | If AMIEOD-style multi-view training gives YOLOv8n ≥ +3 on raw input, it becomes our base recipe. |
+| 2 | Train the cross-fitted YOLOv8m teachers: 3 folds × (2 raw seeds + 3 enhancers) = 15 runs, plus 5 full-data teachers. Compute z_k(o) and plot it against size and luminance. | **GNG-1:** if the share of objects with z_k > 2 is no larger than under a raw-vs-raw null (third seed), the signal is noise: fold the null result into Paper 1 and stop B. |
+| 3 | Run the full control grid on ExDark, 1 seed, YOLOv8n. | **GNG-2:** cross-fitted gate ≥ +0.8 mAP50 over ungated KD **and** ≥ +0.5 over the raw-seed-ensemble gate (confirm on 2 more seeds). If not: if ungated enhanced-teacher KD beats multi-view training by ≥ +1, reframe as "enhancement as computable privileged information" (AAAI/TCSVT); otherwise move to Paper 1. |
 | 4 | Confirm seeds; DarkFace grid; ablations (PKD vs MSE, feature vs logit, FPN levels, K=1/2/3). | Gains must hold on DarkFace small faces (CI excludes 0). |
 | 5 | Build the amortised utility head and semi-supervised KD on unlabeled DarkFace / BDD-night. | **GNG-3:** the label-free gate must recover ≥ 70% of the ground-truth gate's gain, and the unlabeled data must add ≥ +1.0 on DarkFace. Otherwise drop C3 and submit the supervised version to ACM MM. |
 | 6 | Third dataset (nuImages-night, SGLDet's 3,591/894 split, or BDD100K-night); second detector (YOLOv8s or RT-DETR-R18). | — |

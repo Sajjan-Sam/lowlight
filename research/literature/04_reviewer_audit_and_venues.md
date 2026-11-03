@@ -30,11 +30,11 @@
 - **The doc's figures violate this.** I measured them (500×333): fitting SCI vs. raw gives **slope 0.24–0.80 and intercept ≈ 35–44** (a grey veil), and **mean |gradient| drops by about 40%** (2.78→1.67 and 3.22→2.06). In one scene, bright regions darken (186→160). Every other enhancer has slope ≥ 1 and stronger gradients than raw.
 - **Likely cause:** the smooth illumination map `i` (or a wrong tensor or normalization) was saved instead of `r`.
 - **Other notes from the repo:**
-  - The loader splits paths on `'\\'` (Windows-only), so the student must have edited the I/O code; audit those edits.
+  - The loader splits paths on `'\\'` (Windows-only), so the I/O code must have been edited; audit those edits.
   - The default weights are `medium.pt` (LOL+LSRW).
   - The README says the released weights did not produce the paper's results.
 - **Checks:**
-  - (a) Run the unmodified repo on its sample data and diff against the student's outputs.
+  - (a) Run the unmodified repo on its sample data and diff against our outputs.
   - (b) Assert `enh ≥ raw−2/255` on >99% of pixels.
   - (c) Assert enhanced and raw shapes match, for all enhancers.
   - (d) Check RGB vs. BGR and the [0,1] input range.
@@ -43,7 +43,7 @@
   - (g) Run the identity control.
 - **Consequence:** if SCI was buggy, its headline −.149 is invalid.
 
-### 1.3 Factual errors in thesis.md
+### 1.3 Factual errors in the progress document
 1. The LLVIP citation links to LIME's DOI 10.1109/TIP.2016.2639450. The correct source is arXiv 2108.10831 (ICCVW 2021); its 15,488-pair count is verified.
 2. ExDark "640×360, mean 9.84" are stats from one image; ExDark resolutions vary.
 3. The LoL-v2 row claims "real + synthetic", but its counts and link cover only the Real subset.
@@ -107,7 +107,7 @@ Ranks are CORE2023, the latest round I could verify. A 2026 ICORE round may exis
 | Information Fusion | Q1 | No (out of scope) | — |
 | JVCIR | **Not Q1** (Q2/Q3, IF 2.8)* | — | — |
 
-\*2025 JCR figures from the journalmetrics.org aggregator. The others are long-standing Q1 but were not re-checked today. Confirm whether IISER uses JCR or SJR.
+\*2025 JCR figures from the journalmetrics.org aggregator. The others are long-standing Q1 but were not re-checked today. Confirm whether your institution uses JCR or SJR.
 
 **Best fits:**
 - **Benchmark:** IJCV (reach), PR, IVC, EAAI, Neurocomputing.

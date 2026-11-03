@@ -1,4 +1,4 @@
-# 07: Paper C ("Enhance for What, Not Where"): full-text novelty audit (2026-11-03)
+# 07: Paper 3 ("Enhance for What, Not Where"): full-text novelty audit (2026-11-03)
 
 **Method.** All papers below were read in full (arXiv HTML or CVF PDF), except TIP 2025, which is paywalled: repo and Crossref only, so its details are UNVERIFIED.
 
@@ -107,7 +107,7 @@
 - **E4:** YOLOv8n rescoring, and prompt pruning for YOLO-World and OWLv2.
 
 **Go/no-go.**
-- **GO-1:** ≥2 enhancers raise presence mAP by ≥ +2.0 (CI excludes 0) for ≥2 recognisers, while AP75 does not rise. **If this fails, kill Paper C** and fold the zero-shot rows into Paper A.
+- **GO-1:** ≥2 enhancers raise presence mAP by ≥ +2.0 (CI excludes 0) for ≥2 recognisers, while AP75 does not rise. **If this fails, kill Paper 3** and fold the zero-shot rows into Paper 1.
 - **GO-2:** a blur or JPEG control matched on the mAP50 drop must give a ΔAP75/ΔAP50 ratio ≥0.3 lower than the enhancers. Otherwise "localization hurts more" is generic.
 - **GO-3:** consensus presence mAP is ≥ +1.0 over the best single view and ≥ +3.0 over raw.
 - **GO-4:** all three must hold:
@@ -117,7 +117,7 @@
 - **Guard:** enhanced-view hallucination stays ≤ raw + 2 points.
 - **Outcome:**
   - GO-1 and GO-2 only → benchmark/analysis paper (E&D or TMM).
-  - All four → full Paper C.
+  - All four → full Paper 3.
   - GO-1 fails → stop.
 
 ## 7. Corrections to the roadmap and `03`

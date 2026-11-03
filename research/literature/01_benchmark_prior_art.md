@@ -11,7 +11,7 @@ Audit date 2026-11-03. **Limits:** arxiv.org, ar5iv and most mirrors were blocke
 | Liu, Xu, Yang, Fan, Huang, *Benchmarking LLIE and Beyond* (VE-LOL) | IJCV 129:1153–1184, 2021 | Enhancement benchmark with full-reference, no-reference and "semantic" metrics. Face detection on VE-LOL-H (PyramidBox), plus a joint enhancement + face-detection model. | Generic multi-class detection; a multi-detector grid. |
 | Yuan, Yang et al., *UG2+ Track 2* (DARK FACE) | arXiv 1904.04474. TIP 2020 (from the draft header, **venue partly verified**). Winning 2021 report: arXiv 2107.00818 | Haze, rain and low-light tracks. Cascades of enhancement then detection. Enhancement "not always" helps, and the best-SSIM method was not the best detector (DCPDN vs MSCNN). 2021 winner: MSRCR + Cascade R-CNN/DetectoRS. | Controlled grid, statistics, mechanism. |
 | Loh & Chan, ExDark | CVIU 178:30–42, 2019 | 7,363 images, 12 classes, 10 lighting types. Feature-level analysis (hand-crafted and CNN): low-light effects "go deeper than illumination invariance". Proposes 2 metrics for judging enhancement for vision tasks. | Modern detectors; an enhancer × detector grid. |
-| Li, Guo, …, Loy, LLIE survey (LLIV-Phone) | TPAMI 44(12):9396–9416, 2022 (arXiv 2104.10729) | **Frozen** DSFD (trained on WIDER FACE) on DARK FACE: every deep LLIE method *improved* face AP. Retinex-Net, Zero-DCE and TBEFN were the most robust. | Multi-class detection; detectors trained on dark data. Note: this is the opposite sign of the student's P2, because it uses a different protocol. |
+| Li, Guo, …, Loy, LLIE survey (LLIV-Phone) | TPAMI 44(12):9396–9416, 2022 (arXiv 2104.10729) | **Frozen** DSFD (trained on WIDER FACE) on DARK FACE: every deep LLIE method *improved* face AP. Retinex-Net, Zero-DCE and TBEFN were the most robust. | Multi-class detection; detectors trained on dark data. Note: this is the opposite sign of our P2, because it uses a different protocol. |
 | Sun, Ren, Wang, Cao, *Rethinking Image Restoration for Object Detection* | NeurIPS 2022 | Restoration (dehazing, LLIE) "cannot improve, sometimes reduces" detection. Fix: targeted adversarial pseudo-ground-truth, tested on one- and two-stage detectors. | Benchmark or explanation of *why*. |
 | Same paradox, other degradations | Pei et al. ECCV 2018 (dehazing does not help classification). RESIDE/RTTS (arXiv 1712.04143, TIP 2019): task-driven criterion, PSNR/SSIM "insufficient". MPID deraining (CVPR 2019): deraining can hurt detection. URIE (ECCV 2020): recognition-friendly enhancer in front of a frozen model. VRD-IR (CVPR 2023): recognition-driven multi-degradation restoration. | These set the "restoration ≠ recognition" narrative. | Low light specifically, at scale. |
 | *Two-stage object detection in low-light…* | PeerJ CS 11:e2799, 2025 | 3 LLIEs (ZeroDCE++, GLADNet, TBEFN) with YOLOv7 on ExDark. Enhancement *helped* (0.49→0.574). Claims NIQE "strongly correlates" with mAP (n=3 enhancers). | Any rigour. Easy to rebut, but you must cite it. |
@@ -32,7 +32,7 @@ Audit date 2026-11-03. **Limits:** arxiv.org, ar5iv and most mirrors were blocke
 **5(b) Object-size dependence: MOSTLY OPEN.**
 - No dedicated LLIE study found.
 - Scattered AP_S/M/L appears in method papers. LDWLE (Complex & Intelligent Systems 2024): enhancement "notably improves small objects" on COCO-d. NID-DETR (Sci. Rep. 2025): enhancement slightly hurts large objects.
-- The student's finding (small objects sometimes helped, medium/large hurt) agrees with these. It is novel as a systematic, multi-detector result, but it must cite them.
+- Our finding (small objects sometimes helped, medium/large hurt) agrees with these. It is novel as a systematic, multi-detector result, but it must cite them.
 
 **5(c) Per-condition analysis on ExDark's 10 lighting types: OPEN.**
 - Nothing found.
@@ -54,7 +54,7 @@ Audit date 2026-11-03. **Limits:** arxiv.org, ar5iv and most mirrors were blocke
 
 **5(f) Multiple seeds / CIs: OPEN.**
 - No LLIE-for-detection study reports them.
-- This is expected hygiene rather than novelty, but it lets the student say "differences below X mAP are noise". LIME+FRCNN +0.0043 almost certainly is noise.
+- This is expected hygiene rather than novelty, but it lets us say "differences below X mAP are noise". LIME+FRCNN +0.0043 almost certainly is noise.
 
 **5(g) DETR-family vs CNN sensitivity: OPEN.**
 - Only unsupported one-line claims in method papers.
@@ -70,18 +70,18 @@ Audit date 2026-11-03. **Limits:** arxiv.org, ar5iv and most mirrors were blocke
 - 2409.14461: 12 enhancers × at least 1 detector, ExDark only.
 - LIME-Eval: 14 enhancers (human study); detector count **UNVERIFIED**.
 - TPAMI survey: about 10+ enhancers × 1 frozen face detector.
-- The student's **7 × 5 grid across 3 detector families** appears to be the widest *detector* coverage, but not the widest *enhancer* coverage.
+- Our **7 × 5 grid across 3 detector families** appears to be the widest *detector* coverage, but not the widest *enhancer* coverage.
 - No grid across ExDark, DarkFace, LLVIP, BDD100K-night and NightOwls together was found.
 
 ## C. Verdict (blunt)
 
 **Already scooped. Do not claim these as contributions:**
 1. "LLIE does not help, or hurts, detection" (UG2+ 2019/20, Sun et al. NeurIPS 2022, 2409.14461, LIME-Eval).
-2. "Retraining on enhanced images still does not beat raw" (LIME-Eval's 49.2 mAP result; 2409.14461). The student's P3 replicates this.
+2. "Retraining on enhanced images still does not beat raw" (LIME-Eval's 49.2 mAP result; 2409.14461). Our P3 replicates this.
 3. "PSNR/SSIM/NIQE do not reflect machine utility" (RESIDE, UG2+, MPD).
 4. "Evaluate LLIE with frozen pretrained detectors" (LIME-Eval, TPAMI survey).
 
-The student's current P2/P3 tables, on one dataset (ExDark with a custom split), with 7 enhancers, single runs, and a possible SCI pipeline bug, would read as a replication. That is not enough for Q1 and not enough for NeurIPS D&B.
+Our current P2/P3 tables, on one dataset (ExDark with a custom split), with 7 enhancers, single runs, and a possible SCI pipeline bug, would read as a replication. That is not enough for Q1 and not enough for NeurIPS D&B.
 
 **Still novel, if done properly:**
 - Scale-dependent effect, across detectors and datasets.
@@ -92,7 +92,7 @@ The student's current P2/P3 tables, on one dataset (ExDark with a custom split),
 
 **Analyses that would make it clearly publishable:**
 
-1. **Protocol-sign-flip matrix (the headline).** Same enhancers × ≥6 detectors (add YOLO11/12, RT-DETRv2, DINO/Co-DETR, and one open-vocabulary detector such as Grounding DINO) × 4 training regimes (COCO-pretrained frozen, raw-trained, enhanced-trained, mixed) × ≥4 datasets (ExDark *official* plus the custom split, DARK FACE, LLVIP-visible, BDD100K-night or NightOwls). Use 3 seeds, bootstrap CIs, and paired tests. Thesis: *"whether LLIE helps is a property of the train/test protocol, not of the enhancer."* No one has shown this systematically.
+1. **Protocol-sign-flip matrix (the headline).** Same enhancers × ≥6 detectors (add YOLO11/12, RT-DETRv2, DINO/Co-DETR, and one open-vocabulary detector such as Grounding DINO) × 4 training regimes (COCO-pretrained frozen, raw-trained, enhanced-trained, mixed) × ≥4 datasets (ExDark *official* plus the custom split, DARK FACE, LLVIP-visible, BDD100K-night or NightOwls). Use 3 seeds, bootstrap CIs, and paired tests. Central claim: *"whether LLIE helps is a property of the train/test protocol, not of the enhancer."* No one has shown this systematically.
 
 2. **Mechanism by controlled intervention plus feature analysis.** Split each enhancer's effect into components: (i) global brightness/gamma only (match mean intensity), (ii) colour/white-balance shift, (iii) noise amplification (enhancer followed by a denoiser, or measured local SNR), (iv) high-frequency/detail change. Then measure, per detector layer, CKA/MMD between raw and enhanced features. Regress ΔmAP on these factors per object, controlling for size, lighting condition and local SNR. This turns "it hurts" into "it hurts *because* X", and connects to the scale finding (noise amplification inside small boxes vs texture/contrast loss on large ones). Nobody has done this for LLIE.
 
@@ -100,7 +100,7 @@ The student's current P2/P3 tables, on one dataset (ExDark with a custom split),
 
 **Q1 journal (e.g. TIP, TCSVT, PR, ASOC, Neural Networks):** feasible with 1 + 2, multi-dataset coverage, seeds/CIs, and ≥10 enhancers including 2024–26 ones (diffusion, Mamba, FoCo, ISP-driven U-Net).
 
-**NeurIPS D&B:** only feasible if the student also ships a reusable artifact: a public toolkit and leaderboard (cached enhanced images, unified detector configs, metric scripts), *plus* new annotations. Examples: per-image illumination/SNR/lux metadata, verified lighting-condition labels, a cleaned standard ExDark split, or a small new paired dark detection test set. Without new data or a strong tool, D&B reviewers will call it "an analysis paper on existing datasets".
+**NeurIPS D&B:** only feasible if we also ship a reusable artifact: a public toolkit and leaderboard (cached enhanced images, unified detector configs, metric scripts), *plus* new annotations. Examples: per-image illumination/SNR/lux metadata, verified lighting-condition labels, a cleaned standard ExDark split, or a small new paired dark detection test set. Without new data or a strong tool, D&B reviewers will call it "an analysis paper on existing datasets".
 
 **Fix first:**
 - Verify the SCI pipeline. Its output being darker than raw suggests a bug.

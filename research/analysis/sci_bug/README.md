@@ -1,7 +1,7 @@
 # SCI bug reproduction
 
 `sci_diagnose.py` runs SCI (own reimplementation in `enhancers.py`, official weights from
-github.com/vis-opt-group/SCI `CVPR/weights/*.pt`) on the raw sample embedded in the thesis doc
+github.com/vis-opt-group/SCI `CVPR/weights/*.pt`) on the raw sample embedded in the progress document
 (`image41.png`) and compares every variant with the doc's "SCI" sample (`image37.png`).
 
     python sci_diagnose.py <path/to/SCI/CVPR/weights> <dir with image41.png and image37.png>

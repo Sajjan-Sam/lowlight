@@ -1,4 +1,4 @@
-# Agent 3: Alternative directions built on the student's findings (as of 2026-11-03)
+# Alternative directions built on our findings (as of 2026-11-03)
 
 **How this was checked.** I verified items through web-search snippets of CVF, NeurIPS and ICLR proceedings pages and arXiv listings. Direct fetches of arxiv.org, dl.acm.org and iclr.cc were blocked by the session's network policy, and the shared web-search budget ran out near the end. Anything I could not confirm is marked **UNVERIFIED**.
 
@@ -53,7 +53,7 @@
 - Not advised: this area is crowded and heavy on compute for a single GPU.
 
 **8. Low-light benchmarks for VLMs / MLLMs — PARTIAL (VQA covered; captioning and grounding with boxes OPEN)**
-- DarkQA/DarkEQA ([2512.24985](https://arxiv.org/abs/2512.24985); RA-L 2026 per its project page). Synthetic indoor low light from HM3D. LLIE gives *"severity-dependent but unstable recovery"*, and at the worst level some VLMs score below a blind LLM. **This independently mirrors the student's finding, but for VQA.**
+- DarkQA/DarkEQA ([2512.24985](https://arxiv.org/abs/2512.24985); RA-L 2026 per its project page). Synthetic indoor low light from HM3D. LLIE gives *"severity-dependent but unstable recovery"*, and at the worst level some VLMs score below a blind LLM. **This independently mirrors our finding, but for VQA.**
 - EgoNight ([ICLR 2026](https://proceedings.iclr.cc/paper_files/paper/2026/hash/022ca1bed6b574b962c48a2856eb207b-Abstract-Conference.html)): night egocentric video QA. Best score is GPT-4.1 at 30.9%.
 - Also: R-Bench ([2410.05474](https://arxiv.org/abs/2410.05474), luminance among 33 corruptions) and ObsDriveBench ([2607.23537](https://arxiv.org/abs/2607.23537), adverse weather including low light).
 - **No real low-light captioning or grounding benchmark with boxes was found.**
@@ -134,7 +134,7 @@
   - ExDark has only 12 closed-set classes, so text adds little to a YOLO model beyond class-presence information.
   - Running K enhancers plus K VLM calls per image is expensive.
 - **Strongest version ("enhance for *what*, not *where*"):**
-  - Hypothesis: enhanced views improve *recognising which objects are present* even though they hurt *localization*. This fits the student's finding that localization drops while some recognition survives.
+  - Hypothesis: enhanced views improve *recognising which objects are present* even though they hurt *localization*. This fits our finding that localization drops while some recognition survives.
   - Step 1: Run a VLM on the raw view and K enhanced views to get object lists.
   - Step 2: Take a **reliability-weighted consensus vote**, with weights learned on the validation set. This turns many noisy captions into a class-presence probability with fewer hallucinations.
   - Step 3: Use that probability to (a) build the prompt for Grounding DINO or YOLO-World, querying only classes that are present, which cuts prompt-induced false positives, and (b) rescale the scores of the raw closed-set detector's boxes.
