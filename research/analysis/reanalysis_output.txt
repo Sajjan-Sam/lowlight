@@ -1,0 +1,59 @@
+== Relative drop (%) mAP50 / mAP50-95, mean over detectors ==
+LIME           rel50=  -0.8%  rel95=  -1.2%  ratio95/50=1.52
+ZeroDCE++      rel50=  -4.5%  rel95=  -5.6%  ratio95/50=1.24
+SCI            rel50= -20.1%  rel95= -25.7%  ratio95/50=1.28
+Retinexformer  rel50=  -8.0%  rel95=  -9.5%  ratio95/50=1.19
+SNR            rel50=  -9.8%  rel95= -11.8%  ratio95/50=1.20
+PairLIE        rel50= -14.7%  rel95= -17.5%  ratio95/50=1.19
+KinD++         rel50= -11.7%  rel95= -14.4%  ratio95/50=1.23
+
+== Per-detector mean relative drop over 7 enhancers (sensitivity) ==
+YOLOv8n   mean rel50= -10.7%  excl SCI=  -9.2%  rel95= -12.8%
+YOLOv10n  mean rel50=  -9.1%  excl SCI=  -7.5%  rel95= -11.7%
+RT-DETR   mean rel50=  -8.8%  excl SCI=  -8.1%  rel95= -11.0%
+FRCNN     mean rel50=  -7.5%  excl SCI=  -4.3%  rel95=  -9.9%
+DefDETR   mean rel50= -13.6%  excl SCI= -12.1%  rel95= -15.7%
+
+== Ranking agreement of enhancers across detectors ==
+Kendall's W = 0.974, chi2=29.23, p=0.0001
+  tau(YOLOv8n,YOLOv10n)=0.90
+  tau(YOLOv8n,RT-DETR)=0.90
+  tau(YOLOv8n,FRCNN)=0.90
+  tau(YOLOv8n,DefDETR)=0.81
+  tau(YOLOv10n,RT-DETR)=1.00
+  tau(YOLOv10n,FRCNN)=1.00
+  tau(YOLOv10n,DefDETR)=0.90
+  tau(RT-DETR,FRCNN)=1.00
+  tau(RT-DETR,DefDETR)=0.90
+  tau(FRCNN,DefDETR)=0.90
+mean pairwise tau 0.9238095238095239
+
+== Precision vs recall decomposition of the drop (mean over detectors) ==
+LIME           dP=-0.0085 dR=-0.0009
+ZeroDCE++      dP=-0.0265 dR=-0.0248
+SCI            dP=-0.0712 dR=-0.1370
+Retinexformer  dP=-0.0342 dR=-0.0500
+SNR            dP=-0.0548 dR=-0.0454
+PairLIE        dP=-0.0656 dR=-0.0858
+KinD++         dP=-0.0547 dR=-0.0690
+
+== YOLOv8n decomposition: total P2 penalty = domain-shift (P3-P2) + information-loss (P1-P3) ==
+LIME           total=0.0099  shift=0.0082 (  83%)  irreversible=0.0017 (  17%)
+ZeroDCE++      total=0.0407  shift=0.0367 (  90%)  irreversible=0.0040 (  10%)
+SCI            total=0.1440  shift=0.0892 (  62%)  irreversible=0.0548 (  38%)
+Retinexformer  total=0.0657  shift=0.0534 (  81%)  irreversible=0.0123 (  19%)
+SNR            total=0.0625  shift=0.0364 (  58%)  irreversible=0.0261 (  42%)
+
+== Size ΔAP (YOLOv8n): correlation of small-gain with large-loss ==
+LIME     rel S= +3.2% M= -1.7% L= -1.3%
+ZDCE     rel S=+18.3% M= -8.6% L= -5.9%
+RetF     rel S= -0.8% M= -8.3% L= -9.4%
+SNR      rel S=-14.3% M=-13.8% L= -7.5%
+KinD     rel S=+15.1% M= -9.2% L=-15.1%
+PairLIE  rel S= +4.8% M=-22.3% L=-19.3%
+SCI      rel S= -7.9% M=-32.4% L=-21.0%
+
+== Rough SE of mAP50 on 737 test images ==
+SE=0.007: paired-diff SE≈0.0044, 95% half-width≈0.0087
+SE=0.01: paired-diff SE≈0.0063, 95% half-width≈0.0124
+SE=0.012: paired-diff SE≈0.0076, 95% half-width≈0.0149
