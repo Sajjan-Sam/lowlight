@@ -1,6 +1,6 @@
 # Publication Roadmap v2: verified against full papers (2026-11-03)
 
-v1 checked novelty only through search snippets, because arXiv was blocked. **v2 re-checks every idea against the full papers** (`literature/05–07`), confirms the SCI bug, and gives only the claims that survived.
+Every idea is checked against the full papers (`literature/`), confirms the SCI bug, and gives only the claims that survived.
 
 > **No one can guarantee better results before the experiments are run.** What this plan does instead:
 > 1. Builds every method on the **strongest recipe already published**.
@@ -18,7 +18,7 @@ v1 checked novelty only through search snippets, because arXiv was blocked. **v2
 | "P1−P3 = irreversible information loss" (data-processing inequality) | ⚠️ The DPI bounds Shannon information, not *usable* information. LIME-Eval shows **augmentation order** (enhance-first vs augment-first) moves enhanced-trained results back to raw level. | Rename to **residual (non-adaptable) penalty**, cite V-information, and control augmentation order. |
 | Paper 3's "enhancement helps recognition but hurts localization" is new | ❌ **Morawski et al., IEEE TMM 2025:** on ExDark, ~16 enhancers lower YOLO-World mAP but raise CLIP accuracy. **SIC-CADS (AAAI 2024)** and **arXiv 2509.19875** already rescore detections with an image-level or VLM prior. | Paper 3 reframed as a **measurement paper**, conditional on a pilot. |
 | A separate "no-regret enhancement" paper ≈ 5/10 | ❌ 3/10. TaskGuard's counterfactual harm map, Sun et al. 2022's detection-loss constraint and DBDiff's fusion map already exist. | **Not a standalone paper.** Its "regret rate" metric goes into Paper 1 and its harm signal into Paper 2. |
-| DPI-Det | ❌ 3/10 overall; no component is new (`literature/02`) | Replaced by Paper 2. |
+| DPI-Det | ❌ 3/10 overall; no component is new | Replaced by Paper 2. |
 
 **Confirmed bug, SCI.**
 - I re-ran SCI myself (own reimplementation, official weights) on the doc's own raw sample. The doc's "SCI" image matches SCI's **illumination map `i`** (medium weights), not the enhanced output `r`:
@@ -195,5 +195,4 @@ GO-1 + GO-2 support an analysis paper (TMM / TCSVT). All four together are neede
 - `literature/05_paper2_distillation_novelty_and_design.md`: Paper 2 full-text audit, redesign, numbers to beat, 10-week plan.
 - `literature/06_paper1_study_novelty.md`: Paper 1 claims and must-not-claim list; verdict on the no-regret variant; LIME-Eval review record.
 - `literature/07_paper3_recognition_localization_novelty.md`: Paper 3 audit and pilot design.
-- `literature/01–04`: first-pass (snippet-based) audits, venues, reviewer checklist. Superseded where they conflict with 05–07.
 - `analysis/`: reanalysis of the doc's numbers; `analysis/sci_bug/`: the SCI reproduction.
